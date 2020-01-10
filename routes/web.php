@@ -7,3 +7,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// usesr
+Route::get('/user/{id}', 'UserController@show')->name('users.show');
+
+
+// discussions
+Route::resource('discussions', 'DiscussionController') ;
