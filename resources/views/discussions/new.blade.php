@@ -7,6 +7,7 @@
             <div class="card">
                 <div class="card-header">New Discussions</div>
                 <div class="card-body">
+                    @include('layouts._message')
                     <form class="" action="{{ route('discussions.store') }}" method="post">
                         @csrf
                     <div class="form-group">

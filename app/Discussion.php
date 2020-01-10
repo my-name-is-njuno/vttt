@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Discussion extends Model
 {
 
-	protected $fillable = ['avatar','title','content'];
+	protected $fillable = ['title','content'];
 
     public function user (){
         return $this->belongsTo(User::class);

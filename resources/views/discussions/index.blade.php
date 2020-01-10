@@ -10,7 +10,9 @@
                     <a href="{{ route('discussions.create') }}" class="href">New Discussion</a>
                 </div>
 
-
+                <div class="card-body">
+                    @include('layouts._message')
+                </div>
 
 				@foreach($discussions as $disc)
 

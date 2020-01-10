@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Discussion;
+use App\Http\Requests\DiscussionRequest;
 use Illuminate\Http\Request;
+use Session;
 
 class DiscussionController extends Controller
 {
@@ -21,9 +23,12 @@ class DiscussionController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(DiscussionRequest $request)
     {
-        //
+        $request->user()->discussions()->create($request->all());
+        $request->user()->discussions()->create($request->only('title', 'content'));
+        Session::flash('success', "Discussion added successfully");
+        return redirect()->route('discussions.index');
     }
 
 
