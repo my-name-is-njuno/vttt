@@ -38,7 +38,7 @@ class User extends Authenticatable
     ];
 
 
-    public function discussions {
-        return $this->hasMany(Discussion:class);
+    public function discussions() {
+        return $this->hasMany(Discussion::class);
     }
 }
