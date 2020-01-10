@@ -25,7 +25,7 @@ class DiscussionController extends Controller
 
     public function store(DiscussionRequest $request)
     {
-        $request->user()->discussions()->create($request->all());
+        // $request->user()->discussions()->create($request->all());
         $request->user()->discussions()->create($request->only('title', 'content'));
         Session::flash('success', "Discussion added successfully");
         return redirect()->route('discussions.index');
@@ -34,24 +34,29 @@ class DiscussionController extends Controller
 
     public function show(Discussion $discussion)
     {
-        //
+        $discussion->increment('views');
+        return view('discussions.show', compact('discussion'));
     }
 
 
     public function edit(Discussion $discussion)
     {
-        //
+        return view('discussions.edit', compact('discussion'));
     }
 
 
-    public function update(Request $request, Discussion $discussion)
+    public function update(DiscussionRequest $request, Discussion $discussion)
     {
-        //
+        $discussion->update($request->only('title', 'content'));
+        Session::flash('success', "Discussion updated successfully");
+        return redirect()->route('discussions.index');
     }
 
 
     public function destroy(Discussion $discussion)
     {
-        //
+        $discussion->delete();
+        Session::flash('success', "Discussion deleted successfully");
+        return redirect()->route('discussions.index');
     }
 }

@@ -13,4 +13,5 @@ Route::get('/user/{id}', 'UserController@show')->name('users.show');
 
 
 // discussions
-Route::resource('discussions', 'DiscussionController') ;
+Route::resource('discussions', 'DiscussionController')->except('show') ;
+Route::get('/discussions/{slug}', 'DiscussionController@show')->name('discussions.show');

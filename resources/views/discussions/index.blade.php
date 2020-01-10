@@ -19,7 +19,8 @@
 					<div class="card-body">
 						<h4>
 							<a href="{{ $disc->url }}">{{ $disc->title }}</a>
-						</h4>
+                        </h4>
+
 
 						<p>
 							{{ str_limit($disc->content,250) }}
@@ -29,7 +30,19 @@
 						</small>
 						<blockquote class="blockquote-footer">
 							<a href="{{ $disc->user->url }}">{{ $disc->user->name }}</a> | {{ $disc->created_at->diffForHumans() }}
-						</blockquote>
+                        </blockquote>
+
+                        <p class="text-right">
+                            <a class="btn btn-info btn-sm" href="{{ route('discussions.edit', $disc->id) }}">Edit</a>
+                            </p>
+                            <form class="text-right" action="{{ route('discussions.destroy', $disc->id) }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+
+
+
 					</div>
 
 				@endforeach

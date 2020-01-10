@@ -5,16 +5,18 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">New Discussions</div>
+                <div class="card-header">Edit Discussions</div>
                 <div class="card-body">
                     @include('layouts._message')
-                    <form class="" action="{{ route('discussions.store') }}" method="post">
+                    <form class="" action="{{ route('discussions.update', $discussion->id) }}" method="post">
+
+                        @method('PUT')
 
 
-                    @csrf
+                   @csrf
                     <div class="form-group">
                         <label for="">Title</label>
-                        <input type="text" name="title" id="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" placeholder="Discussion Title" aria-describedby="helpId" value="{{ old('title') }}">
+                        <input type="text" name="title" id="title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" placeholder="Discussion Title" aria-describedby="helpId" value="{{ old('title', $discussion->title) }}">
 
                         @if ($errors->has('title'))
                             <div class="invalid-feedback">
@@ -26,7 +28,7 @@
 
                     <div class="form-group">
                         <label for="">Content</label>
-                        <textarea name="content" id="content" cols="30" rows="10" class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}">{{ old('content') }}</textarea>
+                        <textarea name="content" id="content" cols="30" rows="10" class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}">{{ old('content', $discussion->content) }}</textarea>
 
                         @if ($errors->has('content'))
                             <div class="invalid-feedback">
@@ -37,9 +39,9 @@
 
 
                     <div>
-                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                        <button type="submit" class="btn btn-outline-primary">Update Text</button>
                     </div>
-                </form>
+                                    </form>
                 </div>
 
 

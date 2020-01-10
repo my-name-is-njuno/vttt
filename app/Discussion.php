@@ -21,7 +21,7 @@ class Discussion extends Model
 
 
     public function getUrlAttribute() {
-    	return route('discussions.show', $this->id);
+    	return route('discussions.show', $this->slug);
     }
 
     public function getDiscussionCommentStatusAttribute() {
@@ -36,5 +36,9 @@ class Discussion extends Model
             return true;
         }
         return false;
+    }
+
+    public function getContentHtmlAttribute() {
+        return \Parsedown::instance()->text($this->content);
     }
 }
