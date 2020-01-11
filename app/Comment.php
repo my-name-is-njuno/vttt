@@ -5,8 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Discussion;
 
+
+
 class Comment extends Model
 {
+
+    protected $fillable = ['content', 'discussion_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

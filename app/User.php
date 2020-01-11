@@ -46,6 +46,34 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function candidates() {
+        return $this->hasMany(Candidate::class);
+    }
+
+    public function agendas() {
+        return $this->hasMany(Agenda::class);
+    }
+
+    public function promises() {
+        return $this->hasMany(Promise::class);
+    }
+
+    public function country() {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function region() {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function city() {
+        return $this->belongsTo(City::class);
+    }
+
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
+
     public function getUrlAttribute() {
         return route("users.show", $this->id);
     }
