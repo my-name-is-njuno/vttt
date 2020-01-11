@@ -14,12 +14,36 @@
                     @include('layouts._message')
                 </div>
                 <div class="card-body">
-                    {{ $discussion->content_html }}
+                    {!! $discussion->content_html !!}
                 </div>
-
-
-
+                
+                
             </div>
+
+            <h4 class="text-center">Comments</h4>
+            
+            <div class="card">
+            
+            
+                @foreach ($discussion->comments as $c)
+                <div class="card-body">
+            
+                    <p>
+                        {!! $c->content_html !!}
+                    </p>
+                    <blockquote>
+                        <p class="block-footer">
+                            <a href="{{ route('users.show',$c->user->id) }}">{{ $c->user->name }}</a> |
+                            {{ $c->created_at->diffForHumans() }}
+            
+                        </p>
+                    </blockquote>
+                    <hr>
+                </div>
+                @endforeach
+            
+            </div>
+            
         </div>
     </div>
 </div>

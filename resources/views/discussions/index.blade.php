@@ -29,7 +29,7 @@
 							{{ str_limit($disc->content,250) }}
 						</p>
 						<small>
-							{{ $disc->votes }} votes | {{ $disc->comments }} comments | {{ $disc->views }} views
+							{{ $disc->votes_count }} votes | {{ $disc->comments_count }} comments | {{ $disc->views_count }} views
 						</small>
 						<blockquote class="blockquote-footer">
 							<a href="{{ $disc->user->url }}">{{ $disc->user->name }}</a> | {{ $disc->created_at->diffForHumans() }}

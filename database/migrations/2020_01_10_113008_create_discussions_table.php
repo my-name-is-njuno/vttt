@@ -19,9 +19,9 @@ class CreateDiscussionsTable extends Migration
             $table->string('slug');
             $table->text('content');
             $table->string('avatar')->nullable();
-            $table->unsignedInteger('views')->default(0);
-            $table->integer('votes')->default(0);
-            $table->unsignedInteger('comments')->default(0);
+            $table->unsignedInteger('views_count')->default(0);
+            $table->integer('votes_count')->default(0);
+            $table->unsignedInteger('comments_count')->default(0);
             $table->unsignedInteger('top_comment')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

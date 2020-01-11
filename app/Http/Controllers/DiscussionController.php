@@ -39,7 +39,7 @@ class DiscussionController extends Controller
 
     public function show(Discussion $discussion)
     {
-        $discussion->increment('views');
+        $discussion->increment('views_count');
         return view('discussions.show', compact('discussion'));
     }
 

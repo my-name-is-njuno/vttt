@@ -15,7 +15,12 @@ class DatabaseSeeder extends Seeder
         	$u->discussions()
         	->saveMany(
         		factory(App\Discussion::class, rand(1,20))->make()
-        	);
+            )
+            ->each(function($c) {
+                $c->comments()->saveMany(
+                    factory(App\Comment::class, rand(2,27))->make()
+                );
+            });
         });
     }
 }
