@@ -10,6 +10,11 @@ use Session;
 class DiscussionController extends Controller
 {
 
+    public function __construct()
+    {
+        # code...
+    }
+
     public function index()
     {
         $discussions = Discussion::with('user')->latest()->paginate(5);
@@ -40,23 +45,34 @@ class DiscussionController extends Controller
 
 
     public function edit(Discussion $discussion)
-    {
-        return view('discussions.edit', compact('discussion'));
+    {   
+        if (\Gate::allows('update-discussion', $discussion)) {
+            return view('discussions.edit', compact('discussion'));
+        }
+        abort(403, "Access Denied");
+        
     }
 
 
     public function update(DiscussionRequest $request, Discussion $discussion)
     {
-        $discussion->update($request->only('title', 'content'));
-        Session::flash('success', "Discussion updated successfully");
-        return redirect()->route('discussions.index');
+        if (\Gate::allows('update-discussion', $discussion)) {
+            $discussion->update($request->only('title', 'content'));
+            Session::flash('success', "Discussion updated successfully");
+            return redirect()->route('discussions.index');
+        }
+        abort (403, "Access Denied");
     }
 
 
     public function destroy(Discussion $discussion)
     {
-        $discussion->delete();
-        Session::flash('success', "Discussion deleted successfully");
-        return redirect()->route('discussions.index');
+        if (\Gate::allows('delete-discussion', $discussion)) {
+            $discussion->delete();
+            Session::flash('success', "Discussion deleted successfully");
+            return redirect()->route('discussions.index');
+        }
+        abort(403, "Access denied");
+        
     }
 }

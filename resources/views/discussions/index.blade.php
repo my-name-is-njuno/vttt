@@ -6,8 +6,11 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Discussions<br>
-                    <a href="{{ route('discussions.create') }}" class="href">New Discussion</a>
+                    Discussions
+                    @auth
+                        <br>
+                        <a href="{{ route('discussions.create') }}" class="href">New Discussion</a>
+                    @endauth
                 </div>
 
                 <div class="card-body">
@@ -31,16 +34,20 @@
 						<blockquote class="blockquote-footer">
 							<a href="{{ $disc->user->url }}">{{ $disc->user->name }}</a> | {{ $disc->created_at->diffForHumans() }}
                         </blockquote>
-
-                        <p class="text-right">
-                            <a class="btn btn-info btn-sm" href="{{ route('discussions.edit', $disc->id) }}">Edit</a>
-                            </p>
-                            <form class="text-right" action="{{ route('discussions.destroy', $disc->id) }}" method="post">
-                                @method('DELETE')
-                                @csrf
-                                <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
-                            </form>
-
+                        
+                        @auth
+                            @if (Auth::user()->can('update-discussion', $disc))
+                                <p class="text-right">
+                                    <a class="btn btn-info btn-sm" href="{{ route('discussions.edit', $disc->id) }}">Edit</a>
+                                </p>
+                                <form class="text-right" action="{{ route('discussions.destroy', $disc->id) }}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                                </form>
+                            @endif
+                        @endauth
+                        
 
 
 					</div>

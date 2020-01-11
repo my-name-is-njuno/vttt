@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a href="{{ route('discussions.index') }}">See Discussion</a>
                 </div>
             </div>
         </div>
