@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
+    protected $fillable = [
+        'name', 'code'
+    ];
     public function users() {
         return $this->hasMany(Users::class);
     }
@@ -32,5 +35,10 @@ class Country extends Model
 
     public function getNameAtrribute() {
         return ucwords(strtolower($this->name));
+    }
+
+
+    public function getUrlAttribute() {
+        return route("countries.show", $this->id);
     }
 }

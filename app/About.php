@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Promise extends Model
+class About extends Model
 {
     protected $fillable = [
-        'country_id', 'promises'
+        'about', 'country_id'
     ];
 
     public function candidate()
@@ -25,11 +25,12 @@ class Promise extends Model
         return $this->belongsTo(Country::class);
     }
 
-    public function getPromisesHtmlAttribute() {
-        return \Parsedown::instance()->text($this->promises);
+    public function getAboutHtmlAttribute() {
+        return \Parsedown::instance()->text($this->about);
     }
 
+
     public function getUrlAttribute() {
-        return route("promises.show", $this->id);
+        return route("agendas.show", $this->id);
     }
 }

@@ -18,6 +18,7 @@ class CreatePromisesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('country_id');
             $table->unsignedBigInteger('candidate_id');
+            $table->unsignedBigInteger('post_id');
             $table->text('promises');
             $table->unsignedInteger('views_count')->default(0);
             $table->unsignedInteger('comments_count')->default(0);

@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <label for="my-input">Description</label>
                             <textarea name="description" id="description"
-                                class="form-control {{ $errors->has('description', $post->description) ? is-invalid : "" }}">{{ old('description') }}</textarea>
+                                class="form-control {{ $errors->has('description', $post->description) ? is-invalid : "" }}">{{ old('description', $post->description) }}</textarea>
                             @if ($errors->has('description'))
                             <div class="invalid-feedback">
                                 {{ $errors->first('description') }}

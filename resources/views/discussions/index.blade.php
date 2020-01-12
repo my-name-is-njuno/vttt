@@ -34,7 +34,7 @@
 						<blockquote class="blockquote-footer">
 							<a href="{{ $disc->user->url }}">{{ $disc->user->name }}</a> | {{ $disc->created_at->diffForHumans() }}
                         </blockquote>
-                        
+
                         @auth
                             @if (Auth::user()->can('update-discussion', $disc))
                                 <p class="text-right">
@@ -47,7 +47,7 @@
                                 </form>
                             @endif
                         @endauth
-                        
+
 
 
 					</div>

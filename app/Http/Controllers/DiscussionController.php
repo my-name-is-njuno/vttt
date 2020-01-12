@@ -12,7 +12,7 @@ class DiscussionController extends Controller
 
     public function __construct()
     {
-        # code...
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
     public function index()
@@ -30,27 +30,30 @@ class DiscussionController extends Controller
 
     public function store(DiscussionRequest $request)
     {
-        // $request->user()->discussions()->create($request->all());
-        $request->user()->discussions()->create($request->only('title', 'content'));
-        Session::flash('success', "Discussion added successfully");
-        return redirect()->route('discussions.index');
+
+            // $request->user()->discussions()->create($request->all());
+            $request->user()->discussions()->create($request->only('title', 'content'));
+            Session::flash('success', "Discussion added successfully");
+            return redirect()->route('discussions.index');
+
     }
 
 
-    public function show(Discussion $discussion)
+    public function show($slug)
     {
+        $discussion = Discussion::where('slug',$slug)->first();
         $discussion->increment('views_count');
         return view('discussions.show', compact('discussion'));
     }
 
 
     public function edit(Discussion $discussion)
-    {   
+    {
         if (\Gate::allows('update-discussion', $discussion)) {
             return view('discussions.edit', compact('discussion'));
         }
         abort(403, "Access Denied");
-        
+
     }
 
 
@@ -73,6 +76,6 @@ class DiscussionController extends Controller
             return redirect()->route('discussions.index');
         }
         abort(403, "Access denied");
-        
+
     }
 }

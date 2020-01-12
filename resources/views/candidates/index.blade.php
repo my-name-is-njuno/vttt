@@ -8,8 +8,7 @@
                 <div class="card-header">
                     Candidates
                     @auth
-                    <br>
-                    <a href="{{ route('candidates.create') }}" class="href">New Candidate</a>
+
                     @endauth
                 </div>
 
@@ -22,10 +21,10 @@
                     <li class="list-group-item ">
                         {{ $c->full_name }}
                         <span class="text-right">
-                            <a href="{{ route('candidates.show',$c->id) }}">View</a> | <a href="{{ route('candidates.edit',$c->id) }}">Edit</a> | <a
-                                href="{{ route('candidates.delete',$c->id) }}">Delete</a>
+                            <a href="{{ $c->url }}">View</a> | <a href="{{ route('candidates.edit',$c->id) }}">Edit</a> | <a
+                                href="{{ route('candidates.destroy',$c->id) }}">Delete</a>
                         </span>
-                    
+
                     </li>
 
                 @endforeach

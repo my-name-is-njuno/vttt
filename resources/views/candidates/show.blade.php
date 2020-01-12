@@ -6,16 +6,33 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ $candidate->full_name }}<br>
-                    <a href="{{ route('candidates.create') }}" class="href">New Candidate</a>
+
+                {{ $candidate->full_name }} running for {{ $candidate->post->name }} for {{ $candidate->place_name }} <br>
+
                 </div>
 
                 <div class="card-body">
                     @include('layouts._message')
                 </div>
                 <div class="card-body">
-                    {!! $candidate->about_html !!}
+                    <h4>
+                        About Candidate
+                    </h4>
+                    {!! $candidate->about->about_html !!}
                 </div>
+                <div class="card-body">
+                    <h4>
+                        Candidate Agenda
+                    </h4>
+                    {!! $candidate->agenda->agendas_html !!}
+                </div>
+                <div class="card-body">
+                    <h4>
+                        Promises Made
+                    </h4>
+                    {!! $candidate->promise->promises_html !!}
+                </div>
+
 
 
             </div>
@@ -51,23 +68,25 @@
 
             <div class="card">
 
+                @if ($candidate->candidatecomments->count())
+                    @foreach ($candidate->candidatecomments as $c)
+                    <div class="card-body">
 
-                @foreach ($candidate->candidatecomments as $c)
-                <div class="card-body">
-
-                    <p>
-                        {!! $c->content_html !!}
-                    </p>
-                    <blockquote>
-                        <p class="block-footer">
-                            <a href="{{ route('users.show',$c->user->id) }}">{{ $c->user->name }}</a> |
-                            {{ $c->created_at->diffForHumans() }}
-
+                        <p>
+                            {!! $c->content_html !!}
                         </p>
-                    </blockquote>
-                    <hr>
-                </div>
-                @endforeach
+                        <blockquote>
+                            <p class="block-footer">
+                                <a href="{{ route('users.show',$c->user->id) }}">{{ $c->user->name }}</a> |
+                                {{ $c->created_at->diffForHumans() }}
+
+                            </p>
+                        </blockquote>
+                        <hr>
+                    </div>
+                    @endforeach
+                @endif
+
 
             </div>
 

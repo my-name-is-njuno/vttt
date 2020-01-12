@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('country_id');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->text('description');
             $table->integer('candidates_count')->default(0);
             $table->integer('views_count')->default(0);

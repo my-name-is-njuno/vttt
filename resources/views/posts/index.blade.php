@@ -19,20 +19,28 @@
 
 
                 <ul class="list-group">
-                    
-                
+
+
                     @foreach($posts as $p)
 
                         <li class="list-group-item ">
-                            {{ $p.name }} 
-                            <span class="text-right">
-                                <a href="{{ route('posts.show',$p->id) }}">View</a> | <a href="{{ route('posts.edit',$p->id) }}">Edit</a> | <a href="{{ route('posts.delete',$p->id) }}">Delete</a>
+                            {{ $p->name }}
+                            <span class="">
+                                <a href="{{ $p->url }}" class="btn btn-sm btn-outline-info">View</a> | <a class="btn btn-sm btn-outline-info" href="{{ route('posts.edit', $p->id) }}">Edit</a> |
+                                <form action="{{ route('posts.destroy', $p->id) }}" method="post" style="display:inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-sm btn btn-outline-danger" onclick="return confirm('Are You Sure You Want To Delete')">Delete</button>
+                                </form>
+                                | <a href="{{ route('candidates.self.nominate', ['slug'=>$p->slug]) }}" class="btn btn-sm btn-outline-info">Nominate Yourself</a>
                             </span>
-                            
+
+
+
                         </li>
 
                     @endforeach
-                
+
                 </ul>
 
 				<div class="card-body">

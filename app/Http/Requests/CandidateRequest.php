@@ -13,7 +13,7 @@ class CandidateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,15 @@ class CandidateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'full_name'=>'required|string',
+            'dob'=>'date_format:Y-m-d',
+            'place_name'=>'required|string',
+            'running_as'=>'required|string',
+            'political_party'=>'required|string',
+            'about'=>'required|string',
+            'agendas'=>'required|string',
+            'promises'=>'required|string',
+            'country_id' => 'required|integer'
         ];
     }
 }

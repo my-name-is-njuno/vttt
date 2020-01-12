@@ -17,7 +17,11 @@
                     <a href="{{ route('discussions.index') }}">See Discussion</a>
                     <br>
                     <hr>
+                    <a href="{{ route('posts.index') }}">See Posts</a>
+                    <br>
+                    <hr>
                     <a href="{{ route('candidates.index') }}">See Candidates</a>
+
                 </div>
             </div>
         </div>

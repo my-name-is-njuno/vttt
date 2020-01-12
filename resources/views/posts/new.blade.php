@@ -19,12 +19,15 @@
 
 
                 <div class="card-body">
-                    <form action="{{ route('posts.create') }}" method="post">
+                    <form action="{{ route('posts.store') }}" method="post">
+
                         @csrf
+
                         <input type="hidden" name="country_id" value="{{ Auth::user()->country_id }}">
+
                         <div class="form-group">
                             <label for="my-input">Name</label>
-                            <input id="name" class="form-control {{ $errors->has('name') ? is-invalid: "" }}" type="text" name="name" value="{{ old('name') }}">
+                            <input id="name" class="form-control {{ $errors->has('name') ? 'is-invalid': "" }}" type="text" name="name" value="{{ old('name') }}">
                             @if ($errors->has('name'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('name') }}
@@ -34,7 +37,7 @@
 
                         <div class="form-group">
                             <label for="my-input">Description</label>
-                             <textarea name="description" id="description" class="form-control {{ $errors->has('description') ? is-invalid : "" }}">{{ old('description') }}</textarea>
+                             <textarea name="description" id="description" class="form-control {{ $errors->has('description') ? 'is-invalid' : "" }}">{{ old('description') }}</textarea>
                              @if ($errors->has('description'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('description') }}

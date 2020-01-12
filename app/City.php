@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
+
+    protected $fillable = [
+        'name', 'country_id', 'region_id', 'voters'
+    ];
+
+
     public function users() {
         return $this->hasMany(Users::class);
     }
@@ -14,6 +20,8 @@ class City extends Model
         return ucwords(strtolower($this->name));
     }
 
+    public function getUrlAttribute() {
+        return route("cities.show", $this->id);
+    }
 
-    
 }

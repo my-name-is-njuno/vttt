@@ -3,83 +3,69 @@
 namespace App\Http\Controllers;
 
 use App\Candidatecomment;
+use App\Candidate;
 use Illuminate\Http\Request;
+use App\Http\Requests\CandidateCommentRequest;
 
 class CandidatecommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function __construct()
     {
-        //
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+
+    public function index($candidate_id)
     {
-        //
+        $candidate_comments = Candidatecomment::latest()->paginate(5);
+        return view('candidatecomments.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+
+    public function store(CandidateCommentRequest $request)
     {
-        //
+        $request->user()->create($request->all());
+        Session::flash('success', 'Comment Added successfully');
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Candidatecomment  $candidatecomment
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Candidatecomment $candidatecomment)
     {
-        //
+        return view('candidatecomments.show', compact('candidatecomment'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Candidatecomment  $candidatecomment
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Candidatecomment $candidatecomment)
     {
-        //
+        if (\Gate::allows('update-comment', $candidatecomment)) {
+            return view('candidatecomments.edit', compact('candidatecomment'));
+        }
+        abort(403,'Access denied');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Candidatecomment  $candidatecomment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Candidatecomment $candidatecomment)
+
+    public function update(CandidateCommentRequest $request, Candidatecomment $candidatecomment)
     {
-        //
+        if (\Gate::allows('delete-comment', $candidatecomment)) {
+            $candidatecomment->update($request->all());
+            Session::flash('success', 'Comment Added successfully');
+            return back();
+        }
+        abort(403,'Access Denied');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Candidatecomment  $candidatecomment
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Candidatecomment $candidatecomment)
     {
-        //
+        if (\Gate::allows('delete-comment', $candidatecomment)) {
+            $candidatecomment->delete();
+            Session::flash('success', 'Comment Added successfully');
+            return back();
+        }
+        abort(403, 'Access denied');
     }
 }

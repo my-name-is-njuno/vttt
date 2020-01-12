@@ -16,11 +16,11 @@ class CreateCitiesTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
+            $table->integer('country_id')->nullable();
             $table->integer('region_id')->nullable();
             $table->integer('voters')->defaul(0);
             $table->decimal('latitude',10,10)->nullable();
             $table->decimal('longitude',10,10)->nullable();
-            $table->decimal('latitude',10,10)->nullable();
             $table->timestamps();
         });
     }

@@ -37,4 +37,8 @@ class Comment extends Model
 
 
     }
+
+    public function getUrlAttribute() {
+        return route("comments.show", $this->id);
+    }
 }

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'country_id'
     ];
 
     /**
@@ -41,7 +41,7 @@ class User extends Authenticatable
     public function discussions() {
         return $this->hasMany(Discussion::class);
     }
-    
+
     public function comments() {
         return $this->hasMany(Comment::class);
     }
@@ -74,7 +74,21 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function votes() {
+        return $this->hasMany(Vote::class);
+    }
+
     public function getUrlAttribute() {
         return route("users.show", $this->id);
     }
+
+    public function getVotedForAttribute($candidate) {
+        $vote = App\Vote::where('candidate_id', '=', $candidate->id)->first();
+        if ($vote) {
+            return $vote;
+        } else {
+            return false;
+        }
+    }
+
 }
